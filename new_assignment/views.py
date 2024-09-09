@@ -110,6 +110,25 @@ Method: POST
 Input: List of user IDs, total bill amount, and discount percentage.
 Output: Amount each user needs to pay after discount.
 """
+def calculate_discount(price):
+    return price * 0.20
+
+@csrf_exempt
+def add_discount_and_split(request):
+    if request.method == "POST":
+        # Parse the incoming JSON data
+        data = json.loads(request.body)
+        price = data.get('price')  # Get 'price' from the request
+        users = data.get('users')   # Write the num of person in integer
+        total = price - calculate_discount(price) 
+        user_costs = total / users
+        return JsonResponse({"total_per_user": user_costs})
+# Example code json body:
+# {
+#   "price":8500,
+#   "users":5
+# }
+
 
 """
 Task 5: Advanced Bill Splitting with Shared Items
@@ -144,3 +163,24 @@ def split_with_shared_items(request):
 
         # Return the result as a JSON response
         return JsonResponse({"total_per_user": user_costs})
+
+# {
+#   "user_ids": ["user1", "user2", "user3", "user4"],
+#   "items": [
+#     {
+#       "item_name": "Pizza",
+#       "item_price": 1500,
+#       "share_with": ["user1", "user2", "user3"]
+#     },
+#     {
+#       "item_name": "Pasta",
+#       "item_price": 1500,
+#       "share_with": ["user2", "user4"]
+#     },
+#     {
+#       "item_name": "Drinks",
+#       "item_price": 300,
+#       "share_with": ["user1", "user3", "user4"]
+#     }
+#   ]
+# }

@@ -23,5 +23,7 @@ urlpatterns = [
     path('evenly_split/', evenly_split, name='evenly_split'),
     path('split_unevenly/', split_unevenly, name='split_unevenly'),
     path('add_tip_and_tax/', add_tip_and_tax, name='add_tip_and_tax'),  # API endpoint
-    path('split_with_shared_items/',  split_with_shared_items, name='split_with_shared_items')
+    path('split_with_shared_items/',  split_with_shared_items, name='split_with_shared_items'),
+    path('add_discount_and_split/', add_discount_and_split, name='add_discount_and_split')
+
 ]
